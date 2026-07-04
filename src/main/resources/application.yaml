@@ -2,7 +2,7 @@ spring:
   application:
     name: exam2
   datasource:
-    url: jdbc:postgresql://localhost:5432/parkingdb
+    url: jdbc:postgresql://localhost:5434/parkingdb
     driver-class-name: org.postgresql.Driver
     username: postgres
     password: postgres
@@ -18,7 +18,7 @@ spring:
     oauth2:
       resourceserver:
         jwt:
-          issuer-uri: https://cognito-idp.us-east-1.amazonaws.com/us-east-1_yzwNALI2A
+          jwk-set-uri: https://cognito-idp.us-east-1.amazonaws.com/us-east-1_DHnNHfkCk/.well-known/jwks.json
 
 server:
-  port: 8080
+  port: 8081
