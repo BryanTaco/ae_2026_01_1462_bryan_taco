@@ -1,0 +1,154 @@
+{
+	"info": {
+		"name": "Parking Api",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "GET Espacios Disponibles (Público)",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8081/api/parking/spaces/available",
+					"protocol": "http",
+					"host": ["localhost"],
+					"port": "8081",
+					"path": ["api", "parking", "spaces", "available"]
+				}
+			}
+		},
+		{
+			"name": "POST Entrada Sin Token → 401",
+			"request": {
+				"method": "POST",
+				"header": [
+					{ "key": "Content-Type", "value": "application/json" }
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"licensePlate\": \"ABC-123\",\n  \"spaceId\": 1\n}",
+					"options": { "raw": { "language": "json" } }
+				},
+				"url": {
+					"raw": "http://localhost:8081/api/parking/entry",
+					"protocol": "http",
+					"host": ["localhost"],
+					"port": "8081",
+					"path": ["api", "parking", "entry"]
+				}
+			}
+		},
+		{
+			"name": "POST Entrada Exitosa → 201",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [{ "key": "token", "value": "{{access_token}}", "type": "string" }]
+				},
+				"method": "POST",
+				"header": [
+					{ "key": "Content-Type", "value": "application/json" }
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"licensePlate\": \"ABC-123\",\n  \"spaceId\": 1\n}",
+					"options": { "raw": { "language": "json" } }
+				},
+				"url": {
+					"raw": "http://localhost:8081/api/parking/entry",
+					"protocol": "http",
+					"host": ["localhost"],
+					"port": "8081",
+					"path": ["api", "parking", "entry"]
+				}
+			}
+		},
+		{
+			"name": "POST Entrada Espacio Inexistente → 404",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [{ "key": "token", "value": "{{access_token}}", "type": "string" }]
+				},
+				"method": "POST",
+				"header": [
+					{ "key": "Content-Type", "value": "application/json" }
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"licensePlate\": \"DEF-456\",\n  \"spaceId\": 999\n}",
+					"options": { "raw": { "language": "json" } }
+				},
+				"url": {
+					"raw": "http://localhost:8081/api/parking/entry",
+					"protocol": "http",
+					"host": ["localhost"],
+					"port": "8081",
+					"path": ["api", "parking", "entry"]
+				}
+			}
+		},
+		{
+			"name": "POST Entrada Espacio Ya Ocupado → 409",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [{ "key": "token", "value": "{{access_token}}", "type": "string" }]
+				},
+				"method": "POST",
+				"header": [
+					{ "key": "Content-Type", "value": "application/json" }
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"licensePlate\": \"XYZ-999\",\n  \"spaceId\": 1\n}",
+					"options": { "raw": { "language": "json" } }
+				},
+				"url": {
+					"raw": "http://localhost:8081/api/parking/entry",
+					"protocol": "http",
+					"host": ["localhost"],
+					"port": "8081",
+					"path": ["api", "parking", "entry"]
+				}
+			}
+		},
+		{
+			"name": "PUT Salida Exitosa → 200",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [{ "key": "token", "value": "{{access_token}}", "type": "string" }]
+				},
+				"method": "PUT",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8081/api/parking/exit/1",
+					"protocol": "http",
+					"host": ["localhost"],
+					"port": "8081",
+					"path": ["api", "parking", "exit", "1"]
+				}
+			}
+		},
+		{
+			"name": "PUT Salida Ticket Ya Cerrado → 409",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [{ "key": "token", "value": "{{access_token}}", "type": "string" }]
+				},
+				"method": "PUT",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8081/api/parking/exit/1",
+					"protocol": "http",
+					"host": ["localhost"],
+					"port": "8081",
+					"path": ["api", "parking", "exit", "1"]
+				}
+			}
+		}
+	]
+}
